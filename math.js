@@ -1,9 +1,9 @@
 // NEW UPDATES!
-// BIGGEST UPDATE OF THE DAY! 2026/11/15
-// Square root and new other root functions now use expotentation!!! :D
+// BIGGEST UPDATE OF THE WEEK! 2026/11/15 AND 2026/11/16!!
+// Square root now use expotentation! :D
 // New functions! :D
 // Renamed functions! :D
-// New errors! :D
+// New errors! :D (for the first time ever)
 
 class InvalidVectorError extends Error {
   constructor(msg) {
@@ -252,7 +252,7 @@ const math = {
     if (b === 0) throw new ZeroOperatorError("Division by zero, undefined");
     return {quotient: Math.trunc(a / b), remainder: a % b};
   },
-  truncate(x) {
+  trunc(x) {
     return Math.trunc(x);
   },
   fixed(x, places) {
@@ -263,22 +263,43 @@ const math = {
     return divisor < dividend;
   },
   isPrime(x) {
-    if (number % 1 !== 0 || x <= 1) return false;
+    if (x % 1 !== 0 || x <= 1) return false;
+    for (let i = 2; i < x; i++) {
+      if (x % i === 0) return false;
+    }
+    return true;
   },
   isEven(x) {
-    return x % 2 === 0;
+    return x % 2 === 0
   },
   isOdd(x) {
     return x % 1 === 0 && x % 2 !== 0;
-  },
-  norEvenOdd(x) {
-    return x % 2 !== 1;
   },
   isInteger(x) {
     return x % 1 === 0;
   },
   notInteger(x) {
     return x % 1 !== 0;
+  },
+  maxNumber(...numbers) {
+    return Math.max(...numbers);
+  },
+  minNumber(...numbers) {
+    return Math.min(...numbers);
+  },
+  clamp(a, b, x) {
+    if (a >= b) throw new NumberOperatorError("a (minimum) is more than or equal to b (maximum)");
+    return Math.max(a, Math.min(b, x));
+  },
+  maxOnly(a, x) {
+    return Math.min(a, Math.max(-Infinity, x));
+  },
+  minOnly(a, x) {
+    return Math.max(a, Math.min(x, Infinity));
+  },
+  approx(x) {
+    if (Number((x / 10 - Math.trunc(x / 10)).toFixed(1)) < 0.5) return Math.trunc(x / 10) * 10
+    else if (Number((x / 10 - Math.trunc(x / 10)).toFixed(1)) >= 0.5) return (Math.trunc(x / 10) + 1) * 10;
   }
 };
 
